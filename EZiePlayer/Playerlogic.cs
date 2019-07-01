@@ -21,9 +21,7 @@ namespace EZiePlayer
 
         public int Volume = 100; //Громкость
 
-       
-
-
+        
 
 
 
@@ -38,7 +36,7 @@ namespace EZiePlayer
 
         
 
-        public void Play(string filename, int vol) //Воспроизведение
+        public void Play(string filename, int vol, long pos) //Воспроизведение
         {
             if (Bass.BASS_ChannelIsActive(Stream) != BASSActive.BASS_ACTIVE_PAUSED)
             {
@@ -75,14 +73,10 @@ namespace EZiePlayer
                 Bass.BASS_ChannelPause(Stream);
         }
 
-        public double GetPosOfStream(int stream) // Получение текущей позиции в секундах
+        public int GetPosOfStream(int stream) // Получение текущей позиции в секундах
         {
             long pos = Bass.BASS_ChannelGetPosition(stream);
-            return Bass.BASS_ChannelBytes2Seconds(stream, pos);
-
-           
-            
-            //MainWindow.CurrentTrackPosition(posSec);
+            return (int)Bass.BASS_ChannelBytes2Seconds(stream, pos);
         }
 
         public static void GetPosOfScroll(int stream, double pos)

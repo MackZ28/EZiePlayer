@@ -12,10 +12,13 @@ namespace EZiePlayer
     public partial class MainWindow 
     {
         public double volume;
+
         private bool dragStarted = false;
 
         Playerlogic player = new Playerlogic();
         DispatcherTimer timer = new DispatcherTimer();
+
+        
 
         public MainWindow()
         {
@@ -57,7 +60,7 @@ namespace EZiePlayer
             if ((playlist.Items.Count != 0) && (playlist.SelectedIndex != -1))
             {
                 string current = TrackList.Files[playlist.SelectedIndex];
-                player.Play(current, player.Volume); 
+                player.Play(current, player.Volume, (long)sliderPos.Value); 
             }
         }
 
@@ -75,7 +78,7 @@ namespace EZiePlayer
             if (playlist.Items.Count != 0)
             {
                 string current = TrackList.Files[playlist.SelectedIndex];
-                player.Play(current, player.Volume);
+                player.Play(current, player.Volume, (long)sliderPos.Value);
             }
         }
 
@@ -84,7 +87,7 @@ namespace EZiePlayer
             if (playlist.Items.Count != 0)
             {
                 string current = TrackList.Files[playlist.SelectedIndex + 1];
-                player.Play(current, player.Volume);
+                player.Play(current, player.Volume, (long)sliderPos.Value);
             }
         }
 
@@ -110,8 +113,8 @@ namespace EZiePlayer
 
         private void SliProgress_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-           //lblProgressStatus.Text = TimeSpan.FromMilliseconds(sliderPos.Value).ToString(@"hh\:mm\:ss");
-            lblProgressStatus.Text =player.GetPosOfStream(Playerlogic.Stream).ToString("HH:mm:ss");
+            double pos = player.GetPosOfStream(Playerlogic.Stream);
+            lblProgressStatus.Text = TimeSpan.FromSeconds(pos).ToString();
         }
 
         private void SliderPos_DragStarted(object sender, DragStartedEventArgs e)
@@ -122,9 +125,8 @@ namespace EZiePlayer
 
         private void SliderPos_DragCompleted(object sender, DragCompletedEventArgs e)
         {
-
             Bass.BASS_ChannelSetPosition(Playerlogic.Stream, sliderPos.Value);
-            
+           // player.Play(TrackList.Files[playlist.SelectedIndex], player.Volume,(long)sliderPos.Value);
         }
     }
 }
