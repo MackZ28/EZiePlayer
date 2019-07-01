@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{4AAABB64-2A4C-41A5-8AAF-55874814A4D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorSlider", "..\..\..\Desktop\Bass\ColorSlider\ColorSlider.csproj", "{16E224DC-7FF0-4908-8318-D6A3AC2E797A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AAABB64-2A4C-41A5-8AAF-55874814A4D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AAABB64-2A4C-41A5-8AAF-55874814A4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AAABB64-2A4C-41A5-8AAF-55874814A4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AAABB64-2A4C-41A5-8AAF-55874814A4D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E224DC-7FF0-4908-8318-D6A3AC2E797A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E224DC-7FF0-4908-8318-D6A3AC2E797A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E224DC-7FF0-4908-8318-D6A3AC2E797A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E224DC-7FF0-4908-8318-D6A3AC2E797A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {782C07B4-0F16-481E-AEDA-F6BA6BE9827A}
+	EndGlobalSection
+EndGlobal
