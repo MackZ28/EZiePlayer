@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:EZiePlayer"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="800">
-    <Grid Background="#FF427F9A">
-        <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,285,10,464" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" />
-        <Slider Name="slVol" Minimum="0" Maximum="100" Value="50" Margin="0,207,50,0" VerticalAlignment="Top" Height="19" Cursor="Arrow" HorizontalAlignment="Right" Width="200" ValueChanged="SlVol_ValueChanged"/>
+    <Grid Background="Azure">
+        <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,284,10,459" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" />
+        <Slider Name="slVol" Minimum="0" Maximum="100" Value="50" Margin="0,221,30,0" VerticalAlignment="Top" Height="19" Cursor="Arrow" HorizontalAlignment="Right" Width="200" ValueChanged="SlVol_ValueChanged"/>
         
         <Button x:Name="previous"  HorizontalAlignment="Left" Margin="50,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Previous_Click" >
             <Button.BorderBrush>
@@ -104,6 +104,7 @@
                 <ImageBrush/>
             </ListBox.BorderBrush>
         </ListBox>
-        <TextBlock  FontSize="24" FontStyle="Italic" Name="lblProgressStatus" Margin="10,245,685,484">00:00:00</TextBlock>
+        <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressStatus" Margin="10,251,698,485">00:00:00</TextBlock>
+        <TextBlock  FontSize="20" FontStyle="Italic" x:Name="lblProgressTime" Margin="698,251,10,485"><Run Text="00:00:00"/></TextBlock>
     </Grid>
 </Window>
