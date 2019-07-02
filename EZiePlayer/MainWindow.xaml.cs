@@ -12,8 +12,7 @@ namespace EZiePlayer
     public partial class MainWindow 
     {
         public double volume;
-
-        //private bool dragStarted = false;
+        int posOfSelector = 0;
 
         Playerlogic player = new Playerlogic();
         DispatcherTimer timer = new DispatcherTimer();
@@ -27,8 +26,7 @@ namespace EZiePlayer
             timer.Tick += timer_Tick;
             
         }
-
-
+        
         private void timer_Tick(object sender, EventArgs e)
         {
             if(Playerlogic.Stream != 0) 
@@ -53,17 +51,22 @@ namespace EZiePlayer
                     playlist.Items.Add(TrackList.GetFileName(fileName));
                 }  
             }
-            //playlist.SelectAll;
+
+            if (playlist.Items.Count > 0)
+            {
+                playlist.SelectedIndex = 0;
+                player.Play(TrackList.Files[playlist.SelectedIndex], player.Volume);
+                lblProgressTime.Text = TimeSpan.FromSeconds(player.GetTimeOfStream(Playerlogic.Stream)).ToString();
+                timer.Start();
+            }
+
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             if ((playlist.Items.Count != 0) && (playlist.SelectedIndex != -1))
             {
-                string current = TrackList.Files[playlist.SelectedIndex];
-                player.Play(current, player.Volume);
-                lblProgressTime.Text = TimeSpan.FromSeconds(player.GetTimeOfStream(Playerlogic.Stream)).ToString();
-                timer.Start();
+                Play();
             }
         }
 
@@ -78,22 +81,26 @@ namespace EZiePlayer
             sliderPos.Value = 0;
 
         }
+        
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
-            if (playlist.Items.Count != 0)
+            posOfSelector--;
+            if (playlist.Items.Count != 0 && playlist.Items.Count > posOfSelector && posOfSelector > -1 )
             {
-                string current = TrackList.Files[playlist.SelectedIndex];
-                player.Play(current, player.Volume);
-            }
+                playlist.SelectedIndex = posOfSelector;
+                Play();
+            } else posOfSelector = playlist.Items.Count;
         }
-
+        
         private void Forward_Click(object sender, RoutedEventArgs e)
         {
-            if (playlist.Items.Count != 0)
+            posOfSelector++;
+            if (playlist.Items.Count != 0 && playlist.Items.Count > posOfSelector)
             {
-                string current = TrackList.Files[playlist.SelectedIndex + 1];
-                player.Play(current, player.Volume);
-            }
+                playlist.SelectedIndex = posOfSelector;
+                Play();
+            } else posOfSelector = -1;
+            
         }
 
         private void Mute_Click(object sender, RoutedEventArgs e)
@@ -130,9 +137,16 @@ namespace EZiePlayer
         private void SliderPos_DragCompleted(object sender, DragCompletedEventArgs e)
         {
             Playerlogic.GetPosOfScroll(Playerlogic.Stream, sliderPos.Value);
-            player.Play(TrackList.Files[playlist.SelectedIndex], player.Volume);
+            Play();
+        }
+
+        public void Play()
+        {
+            string current = TrackList.Files[playlist.SelectedIndex];
+            player.Play(current, player.Volume);
             lblProgressTime.Text = TimeSpan.FromSeconds(player.GetTimeOfStream(Playerlogic.Stream)).ToString();
             timer.Start();
+            posOfSelector = playlist.SelectedIndex;
         }
     }
 }
