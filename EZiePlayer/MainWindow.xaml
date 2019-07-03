@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EZiePlayer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="800">
+        Title="EZiePlayer" Height="800" Width="800" ResizeMode="CanMinimize" Icon="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\iconfinder_Play_701486.png" >
+
     <Grid Background="DarkGray">
-        <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,284,10,459" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" Cursor="Hand" />
+
+        <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,284,10,459" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" Cursor="Hand" IsMoveToPointEnabled="True" MouseDown="SliderPos_MouseDown"/>
         <Slider Name="slVol" Minimum="0" Maximum="100" Value="20" Margin="0,221,30,0" VerticalAlignment="Top" Height="19" Cursor="Hand" HorizontalAlignment="Right" Width="200" ValueChanged="SlVol_ValueChanged"/>
-        
         <Button x:Name="previous"  HorizontalAlignment="Left" Margin="50,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Previous_Click" >
             <Button.BorderBrush>
                 <ImageBrush/>
@@ -41,7 +42,7 @@
             <StackPanel>
                 <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\play.png" Stretch="Fill" Cursor="Hand" ForceCursor="False" />
             </StackPanel>
-            
+
         </Button>
         <Button x:Name="pause" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Pause_Click">
             <Button.BorderBrush>
@@ -98,31 +99,33 @@
                 <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\mute.png" Stretch="Fill" Cursor="Hand" />
             </StackPanel>
         </Button>
-        <ListBox  Name="playlist"  Margin="30,310,30,30" Foreground="Black" FontSize="20"  MouseDoubleClick="Play_Click">
+        <ListBox  Name="playlist"  Margin="5,312,5,10" Foreground="Black" FontSize="14"  MouseDoubleClick="Play_Click" >
             <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="Background" Value="White"/>
-                                    <Setter Property="Margin" Value="2"/>
-                                    <Setter Property="Padding" Value="5"/>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="Padding" Value="5"/>
                     <Style.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Foreground" Value="White"/>
-                                            <Setter Property="BorderThickness" Value="1"/>
-                                            <Setter Property="BorderBrush" Value="Black"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="IndianRed"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
             </ListBox.ItemContainerStyle>
-                <ListBox.Style>
-                    <Style TargetType="{x:Type ListBox}">
-                        <Setter Property="Background" Value="LightGray"/>
-                    </Style>
-                </ListBox.Style>
-            <ListBox.BorderBrush>
-                <ImageBrush/>
-            </ListBox.BorderBrush>
+            <ListBox.Style>
+                <Style TargetType="{x:Type ListBox}">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="BorderThickness" Value="0.6"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                </Style>
+            </ListBox.Style>
+
         </ListBox>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressStatus" Margin="10,251,698,485">00:00:00</TextBlock>
-        <TextBlock  FontSize="20" FontStyle="Italic" x:Name="lblProgressTime" Margin="698,251,10,485"><Run Text="00:00:00"/></TextBlock>
+        <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressTime" Margin="698,251,10,485"><Run Text="00:00:00"/></TextBlock>
+        <TextBlock  FontSize="28" FontStyle="Italic" Name="Artist" Margin="40,10,544,712"></TextBlock>
+        <TextBlock  FontSize="22" FontStyle="Italic" Name="Track" Margin="40,80,374,642"/>
     </Grid>
 </Window>

@@ -3,6 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Un4seen.Bass;
 
@@ -13,6 +14,7 @@ namespace EZiePlayer
     {
         public double volume;
         int posOfSelector = 0;
+        int numOfTrack = 1;
 
         Playerlogic player = new Playerlogic();
         DispatcherTimer timer = new DispatcherTimer();
@@ -36,7 +38,7 @@ namespace EZiePlayer
                 sliderPos.Value = Bass.BASS_ChannelGetPosition(Playerlogic.Stream);
            }
         }
-
+        
         private void Source_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog OFD = new OpenFileDialog()
@@ -46,18 +48,20 @@ namespace EZiePlayer
             };
             if (OFD.ShowDialog() == true)
             {
+                
                 foreach (String fileName in OFD.FileNames) {
                     TrackList.Files.Add(fileName);
-                    playlist.Items.Add(TrackList.GetFileName(fileName));
+                    TagModel tm = new TagModel(fileName);
+                    playlist.Items.Add(numOfTrack + ". "+ tm.Artist +" - " + tm.Title + " " + "\n   " + tm.BitRate + " kbps " + " - " + tm.Album);
+                    numOfTrack++;
                 }  
-            }
+            } 
 
-            if (playlist.Items.Count > 0)
+            if (playlist.Items.Count > 0 && Playerlogic.Stream == 0)
             {
                 playlist.SelectedIndex = 0;
-                player.Play(TrackList.Files[playlist.SelectedIndex], player.Volume);
-                lblProgressTime.Text = TimeSpan.FromSeconds(player.GetTimeOfStream(Playerlogic.Stream)).ToString();
-                timer.Start();
+                Play();
+               
             }
 
         }
@@ -126,6 +130,7 @@ namespace EZiePlayer
         private void SliProgress_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             lblProgressStatus.Text = TimeSpan.FromSeconds(player.GetPosOfStream(Playerlogic.Stream)).ToString();
+            
         }
 
         private void SliderPos_DragStarted(object sender, DragStartedEventArgs e)
@@ -147,6 +152,15 @@ namespace EZiePlayer
             lblProgressTime.Text = TimeSpan.FromSeconds(player.GetTimeOfStream(Playerlogic.Stream)).ToString();
             timer.Start();
             posOfSelector = playlist.SelectedIndex;
+            TagModel tm = new TagModel(TrackList.Files[playlist.SelectedIndex]);
+            Artist.Text = tm.Artist;
+            Track.Text = tm.Title;
+        }
+
+        private void SliderPos_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Playerlogic.GetPosOfScroll(Playerlogic.Stream, sliderPos.Value);
+            Play();
         }
     }
 }
