@@ -25,9 +25,7 @@ namespace EZiePlayer
             }
             return InitDefaultDevice;
         }
-
         
-
         public void Play(string filename, int vol) //Воспроизведение
         {
             if (Bass.BASS_ChannelIsActive(Stream) != BASSActive.BASS_ACTIVE_PAUSED)
@@ -83,5 +81,10 @@ namespace EZiePlayer
           Bass.BASS_ChannelSetPosition(stream, (long)pos);
         }
         
+        public string GetLengthOfFile(string filename)
+        {
+          string length = TimeSpan.FromSeconds(GetTimeOfStream(Bass.BASS_StreamCreateFile(filename, 0, 0, BASSFlag.BASS_DEFAULT))).ToString();
+          return length;
+        }
     }
 }

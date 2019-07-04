@@ -1,9 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Un4seen.Bass;
 
@@ -12,15 +13,13 @@ namespace EZiePlayer
     
     public partial class MainWindow 
     {
+        DispatcherTimer timer = new DispatcherTimer();
+        Playerlogic player = new Playerlogic();
         public double volume;
         int posOfSelector = 0;
         int numOfTrack = 1;
-
-        Playerlogic player = new Playerlogic();
-        DispatcherTimer timer = new DispatcherTimer();
-
+        bool isPlaying;
         
-
         public MainWindow()
         {
             InitializeComponent();
@@ -36,7 +35,14 @@ namespace EZiePlayer
                 sliderPos.Minimum = 0;
                 sliderPos.Maximum = Bass.BASS_ChannelGetLength(Playerlogic.Stream);
                 sliderPos.Value = Bass.BASS_ChannelGetPosition(Playerlogic.Stream);
-           }
+
+                if (sliderPos.Value == sliderPos.Maximum)
+                {
+                    posOfSelector++;
+                    playlist.SelectedIndex = posOfSelector;
+                    Play();
+                } 
+            }
         }
         
         private void Source_Click(object sender, RoutedEventArgs e)
@@ -48,11 +54,10 @@ namespace EZiePlayer
             };
             if (OFD.ShowDialog() == true)
             {
-                
                 foreach (String fileName in OFD.FileNames) {
                     TrackList.Files.Add(fileName);
                     TagModel tm = new TagModel(fileName);
-                    playlist.Items.Add(numOfTrack + ". "+ tm.Artist +" - " + tm.Title + " " + "\n   " + tm.BitRate + " kbps " + " - " + tm.Album);
+                    playlist.Items.Add(numOfTrack + ". " + tm.Artist + " - " + tm.Title + "\n    " + new StringBuilder().Append('\t', 12) + player.GetLengthOfFile(fileName) + "\n  " + " Bitrate: " + tm.BitRate + " kbps     "+ " Album: "  + tm.Album);
                     numOfTrack++;
                 }  
             } 
@@ -61,31 +66,44 @@ namespace EZiePlayer
             {
                 playlist.SelectedIndex = 0;
                 Play();
-               
+                isPlaying = true;
             }
 
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            if ((playlist.Items.Count != 0) && (playlist.SelectedIndex != -1))
+            if (playlist.Items.Count != 0 && playlist.SelectedIndex != -1 && isPlaying == false )
             {
                 Play();
+                isPlaying = true;
+                ImagePlay.Source = new BitmapImage(new Uri("C:/Users/Администратор/Desktop/DevPlayer/EZiePlayer/DesignEZiePlayer/pause.png"));
+            }  else {
+                player.Pause();
+                isPlaying = false;
+                ImagePlay.Source = new BitmapImage(new Uri("C:/Users/Администратор/Desktop/DevPlayer/EZiePlayer/DesignEZiePlayer/play.png"));
             }
+                
         }
 
-        private void Pause_Click(object sender, RoutedEventArgs e)
+        private void Playlist_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            player.Pause();
+            posOfSelector = playlist.SelectedIndex;
+            Play();
+            isPlaying = true;
+            ImagePlay.Source = new BitmapImage(new Uri("C:/Users/Администратор/Desktop/DevPlayer/EZiePlayer/DesignEZiePlayer/pause.png"));
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             player.Stop();
             sliderPos.Value = 0;
-
+            timer.Stop();
+            isPlaying = false;
+            ImagePlay.Source = new BitmapImage(new Uri("C:/Users/Администратор/Desktop/DevPlayer/EZiePlayer/DesignEZiePlayer/play.png"));
+            lblProgressStatus.Text = "00:00:00";
         }
-        
+
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             posOfSelector--;
@@ -104,7 +122,6 @@ namespace EZiePlayer
                 playlist.SelectedIndex = posOfSelector;
                 Play();
             } else posOfSelector = -1;
-            
         }
 
         private void Mute_Click(object sender, RoutedEventArgs e)
@@ -113,12 +130,14 @@ namespace EZiePlayer
             {
                 player.SetVolumeToStream(Playerlogic.Stream, 0);
                 volume = slVol.Value;
-                slVol.Value = 0;
+                slVol.Value = 0;;
+                ImageMute.Source = new BitmapImage(new Uri("C:/Users/Администратор/Desktop/DevPlayer/EZiePlayer/DesignEZiePlayer/mute.png"));
             }
             else
             {
                 player.SetVolumeToStream(Playerlogic.Stream, (int)volume);
                 slVol.Value = volume;
+                ImageMute.Source = new BitmapImage(new Uri("C:/Users/Администратор/Desktop/DevPlayer/EZiePlayer/DesignEZiePlayer/volume.png"));
             }
         }
 
@@ -153,14 +172,28 @@ namespace EZiePlayer
             timer.Start();
             posOfSelector = playlist.SelectedIndex;
             TagModel tm = new TagModel(TrackList.Files[playlist.SelectedIndex]);
-            Artist.Text = tm.Artist;
-            Track.Text = tm.Title;
+            Artist.Text = tm.Artist +" - " + tm.Title;
+            
         }
 
         private void SliderPos_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Playerlogic.GetPosOfScroll(Playerlogic.Stream, sliderPos.Value);
             Play();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            playlist.Items.RemoveAt(posOfSelector);
+            TrackList.Files.RemoveAt(posOfSelector);
+            posOfSelector--;
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            playlist.Items.Clear();
+            TrackList.Files.Clear();
+            posOfSelector = 0;
         }
     }
 }

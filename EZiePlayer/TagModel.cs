@@ -29,15 +29,7 @@ namespace EZiePlayer
             Channels = channels[tagInfo.channelinfo.chans];
             Artist = tagInfo.artist;
             Album = tagInfo.album;
-      
-           
-
-            if (tagInfo.title == "")
-            {
-                Title = TrackList.GetFileName(file);
-               
-            }
-                
+            if (tagInfo.title == "") Title = TrackList.GetFileName(file);   
             else Title = tagInfo.title; Year = tagInfo.year;
 
         }

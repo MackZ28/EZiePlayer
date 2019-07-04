@@ -8,9 +8,20 @@
         Title="EZiePlayer" Height="800" Width="800" ResizeMode="CanMinimize" Icon="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\iconfinder_Play_701486.png" >
 
     <Grid Background="DarkGray">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File" FontSize="16">
+                    <MenuItem Header="_Open" Click="Source_Click"/>
+                    <MenuItem Header="_Delete" Click="MenuItem_Click"/>
+                    <MenuItem Header="_Delete All" Click="MenuItem_Click_1"/>
+                    <MenuItem Header="Close" />
+                </MenuItem>
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
 
         <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,284,10,459" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" Cursor="Hand" IsMoveToPointEnabled="True" MouseDown="SliderPos_MouseDown"/>
-        <Slider Name="slVol" Minimum="0" Maximum="100" Value="20" Margin="0,221,30,0" VerticalAlignment="Top" Height="19" Cursor="Hand" HorizontalAlignment="Right" Width="200" ValueChanged="SlVol_ValueChanged"/>
+        <Slider Name="slVol" Minimum="0" Maximum="100" Value="20" Margin="0,221,20,0" VerticalAlignment="Top" Height="19" Cursor="Hand" HorizontalAlignment="Right" Width="210" ValueChanged="SlVol_ValueChanged"/>
         <Button x:Name="previous"  HorizontalAlignment="Left" Margin="50,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Previous_Click" >
             <Button.BorderBrush>
                 <ImageBrush/>
@@ -40,22 +51,11 @@
                 <ImageBrush Stretch="UniformToFill"/>
             </Button.Background>
             <StackPanel>
-                <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\play.png" Stretch="Fill" Cursor="Hand" ForceCursor="False" />
+                <Image Name="ImagePlay" Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\pause.png" Stretch="Fill" Cursor="Hand" ForceCursor="False" />
             </StackPanel>
 
         </Button>
-        <Button x:Name="pause" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Pause_Click">
-            <Button.BorderBrush>
-                <ImageBrush/>
-            </Button.BorderBrush>
-            <Button.Background>
-                <ImageBrush Stretch="UniformToFill"/>
-            </Button.Background>
-            <StackPanel>
-                <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\pause.png" Stretch="Fill" Cursor="Hand" />
-            </StackPanel>
-        </Button>
-        <Button x:Name="stop" HorizontalAlignment="Left" Margin="340,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Stop_Click">
+        <Button x:Name="stop" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Stop_Click">
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -66,7 +66,7 @@
                 <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\stop.png" Stretch="Fill" Cursor="Hand" />
             </StackPanel>
         </Button>
-        <Button x:Name="forward" HorizontalAlignment="Left" Margin="430,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Forward_Click">
+        <Button x:Name="forward" HorizontalAlignment="Left" Margin="340,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Forward_Click">
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -77,7 +77,7 @@
                 <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\forwards.png" Stretch="Fill" Cursor="Hand" />
             </StackPanel>
         </Button>
-        <Button x:Name="source" HorizontalAlignment="Right" Margin="0,20,20,0" VerticalAlignment="Top" Width="60" Height="60" Click="Source_Click">
+        <Button x:Name="source" HorizontalAlignment="Right" Margin="0,40,20,0" VerticalAlignment="Top" Width="60" Height="60" Click="Source_Click" RenderTransformOrigin="0.583,1.283">
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -88,7 +88,7 @@
                 <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\folder.png" Stretch="Fill" />
             </StackPanel>
         </Button>
-        <Button x:Name="mute" HorizontalAlignment="Right" Margin="0,140,60,0" VerticalAlignment="Top" Width="60" Height="60" Click="Mute_Click">
+        <Button x:Name="mute" HorizontalAlignment="Right" Margin="0,205,235,0" VerticalAlignment="Top" Width="50" Height="50" Click="Mute_Click">
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -96,10 +96,11 @@
                 <ImageBrush Stretch="UniformToFill"/>
             </Button.Background>
             <StackPanel>
-                <Image Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\mute.png" Stretch="Fill" Cursor="Hand" />
+                <Image x:Name ="ImageMute" Source="C:\Users\Администратор\Desktop\DevPlayer\EZiePlayer\DesignEZiePlayer\volume.png" Stretch="Fill" Cursor="Hand" />
             </StackPanel>
         </Button>
-        <ListBox  Name="playlist"  Margin="5,312,5,10" Foreground="Black" FontSize="14"  MouseDoubleClick="Play_Click" >
+        <ListBox  Name="playlist"  Margin="5,312,5,10" Foreground="Black" FontSize="14"  MouseDoubleClick="Playlist_MouseDoubleClick" >
+
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Background" Value="White"/>
@@ -121,11 +122,9 @@
                     <Setter Property="BorderBrush" Value="Black"/>
                 </Style>
             </ListBox.Style>
-
         </ListBox>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressStatus" Margin="10,251,698,485">00:00:00</TextBlock>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressTime" Margin="698,251,10,485"><Run Text="00:00:00"/></TextBlock>
-        <TextBlock  FontSize="28" FontStyle="Italic" Name="Artist" Margin="40,10,544,712"></TextBlock>
-        <TextBlock  FontSize="22" FontStyle="Italic" Name="Track" Margin="40,80,374,642"/>
+        <TextBlock  FontSize="28" FontStyle="Italic" Name="Artist" Margin="66,96,176,626"></TextBlock>
     </Grid>
 </Window>
