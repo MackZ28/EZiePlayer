@@ -30,7 +30,7 @@
                 <ImageBrush Stretch="UniformToFill"/>
             </Button.Background>
             <StackPanel>
-                <Image Source="Resources\forwards.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Cursor="Hand" >
+                <Image Source="Resources\next.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Cursor="Hand" >
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -75,7 +75,7 @@
                 <ImageBrush Stretch="UniformToFill"/>
             </Button.Background>
             <StackPanel>
-                <Image Source="Resources\forwards.png" Stretch="Fill" Cursor="Hand"  />
+                <Image Source="Resources\next.png" Stretch="Fill" Cursor="Hand"  />
             </StackPanel>
         </Button>
         <Button x:Name="source" HorizontalAlignment="Right" Margin="0,40,20,0" VerticalAlignment="Top" Width="60" Height="60" Click="Source_Click" RenderTransformOrigin="0.583,1.283">
@@ -126,7 +126,7 @@
         </ListBox>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressStatus" Margin="10,251,698,485">00:00:00</TextBlock>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressTime" Margin="698,251,10,485"><Run Text="00:00:00"/></TextBlock>
-        <TextBlock  FontSize="28" FontStyle="Normal" Name="Artist" Margin="66,96,176,626"></TextBlock>
+        <TextBlock  FontSize="28" FontStyle="Normal" Name="Artist" Margin="395,96,176,626"></TextBlock>
         
     </Grid>
     
