@@ -23,6 +23,14 @@
         <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,284,10,459" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" Cursor="Hand" IsMoveToPointEnabled="True"  PreviewMouseLeftButtonUp="SliderPos_PreviewMouseLeftButtonUp" />
         <Slider Name="slVol" Minimum="0" Maximum="100" Value="20" Margin="0,221,20,0" VerticalAlignment="Top" Height="19" Cursor="Hand" HorizontalAlignment="Right" Width="210" IsMoveToPointEnabled="True" ValueChanged="SlVol_ValueChanged"/>
         <Button x:Name="previous"  HorizontalAlignment="Left" Margin="50,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Previous_Click" >
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Height="Auto" Width="Auto" />
+                        <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -42,8 +50,15 @@
                 </Image>
             </StackPanel>
         </Button>
-        <Button x:Name="play" HorizontalAlignment="Left" Margin="140,150,0,0" VerticalAlignment="Top" Width="100" Height="100" Click="Play_Click" >
-
+        <Button x:Name="play" HorizontalAlignment="Left" Margin="140,150,0,0" VerticalAlignment="Top" Width="100" Height="100" Click="Play_Click" RenderTransformOrigin="0.5,0.5">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Height="Auto" Width="Auto" />
+                        <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -56,6 +71,14 @@
 
         </Button>
         <Button x:Name="stop" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Stop_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Height="Auto" Width="Auto" />
+                        <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -67,7 +90,14 @@
             </StackPanel>
         </Button>
         <Button x:Name="forward" HorizontalAlignment="Left" Margin="340,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Forward_Click"  >
-            
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Height="Auto" Width="Auto" />
+                        <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -79,6 +109,14 @@
             </StackPanel>
         </Button>
         <Button x:Name="source" HorizontalAlignment="Right" Margin="0,40,20,0" VerticalAlignment="Top" Width="60" Height="60" Click="Source_Click" RenderTransformOrigin="0.583,1.283">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Height="Auto" Width="Auto" />
+                        <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -86,10 +124,18 @@
                 <ImageBrush Stretch="UniformToFill"/>
             </Button.Background>
             <StackPanel>
-                <Image Source="Resources\folder.png" Stretch="Fill" />
+                <Image Source="Resources\folder.png" Stretch="Fill" Cursor="Hand" />
             </StackPanel>
         </Button>
         <Button x:Name="mute" HorizontalAlignment="Right" Margin="0,205,235,0" VerticalAlignment="Top" Width="50" Height="50" Click="Mute_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Height="Auto" Width="Auto" />
+                        <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
             <Button.BorderBrush>
                 <ImageBrush/>
             </Button.BorderBrush>
@@ -126,9 +172,9 @@
         </ListBox>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressStatus" Margin="10,251,698,485">00:00:00</TextBlock>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressTime" Margin="698,251,10,485"><Run Text="00:00:00"/></TextBlock>
-        <TextBlock  FontSize="28" FontStyle="Normal" Name="Artist" Margin="395,96,176,626"></TextBlock>
-        
+        <TextBlock  FontSize="24" FontStyle="Normal" Name="Artist" Margin="10,100,176,626"></TextBlock>
+
     </Grid>
-    
-    
+
+
 </Window>

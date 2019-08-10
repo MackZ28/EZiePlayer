@@ -57,7 +57,7 @@ namespace EZiePlayer
                 {
                     TrackList.Files.Add(fileName);
                     TagModel tm = new TagModel(fileName);
-                    playlist.Items.Add(numOfTrack + ". " + tm.Artist + " - " + tm.Title + "\n    " + new StringBuilder().Append('\t', 12) + player.GetLengthOfFile(fileName) + "\n  " + " Bitrate: " + tm.BitRate + " kbps     " + " Album: " + tm.Album);
+                    playlist.Items.Add(numOfTrack + ". "  + tm.Artist + " - " + tm.Title + "\n    " + new StringBuilder().Append('\t', 12) + player.GetLengthOfFile(fileName) + "\n  " + " Bitrate: " + tm.BitRate + " kbps     " + " Album: " + tm.Album);
                     numOfTrack++;
                 }
             }
@@ -175,7 +175,7 @@ namespace EZiePlayer
             timer.Start();
             posOfSelector = playlist.SelectedIndex;
             TagModel tm = new TagModel(TrackList.Files[playlist.SelectedIndex]);
-            Artist.Text = tm.Artist + " - " + tm.Title;
+            Artist.Text = "Now playing:  " + tm.Artist + " - " + tm.Title;
         }
 
         private void MenuItem_Delete(object sender, RoutedEventArgs e)
