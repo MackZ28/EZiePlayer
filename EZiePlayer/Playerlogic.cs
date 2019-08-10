@@ -13,8 +13,6 @@ namespace EZiePlayer
 
         public int Volume = 100; //Громкость
 
-        
-
 
 
         public bool InitBass(int hz) // Инициализация Bass.dll
@@ -41,7 +39,6 @@ namespace EZiePlayer
                         Bass.BASS_ChannelSetAttribute(Stream, BASSAttribute.BASS_ATTRIB_VOL, Volume / 100F);
                         Bass.BASS_ChannelPlay(Stream, false);
                     }
-
                 }
             }
             else Bass.BASS_ChannelPlay(Stream, false);
