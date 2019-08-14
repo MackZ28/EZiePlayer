@@ -20,7 +20,7 @@
             <StackPanel></StackPanel>
         </DockPanel>
 
-        <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,284,10,459" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" Cursor="Hand" IsMoveToPointEnabled="True"  PreviewMouseLeftButtonUp="SliderPos_PreviewMouseLeftButtonUp" />
+        <Slider Name="sliderPos" ValueChanged="SliProgress_ValueChanged" Margin="10,284,10,459" Thumb.DragStarted="SliderPos_DragStarted" Thumb.DragCompleted="SliderPos_DragCompleted" Cursor="Hand" IsMoveToPointEnabled="True" MouseDown="SliderPos_MouseUp"/>
         <Slider Name="slVol" Minimum="0" Maximum="100" Value="20" Margin="0,221,20,0" VerticalAlignment="Top" Height="19" Cursor="Hand" HorizontalAlignment="Right" Width="210" IsMoveToPointEnabled="True" ValueChanged="SlVol_ValueChanged"/>
         <Button x:Name="previous"  HorizontalAlignment="Left" Margin="50,160,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="Previous_Click" >
             <Button.Template>
@@ -146,7 +146,7 @@
                 <Image x:Name ="ImageMute" Source="Resources\volume.png" Stretch="Fill" Cursor="Hand" />
             </StackPanel>
         </Button>
-        <ListBox  Name="playlist"  Margin="5,312,5,10" Foreground="Black" FontSize="14"  MouseDoubleClick="Playlist_MouseDoubleClick" >
+        <ListBox  Name="playlist"  Margin="5,312,5,5" Foreground="Black" FontSize="13"  MouseDoubleClick="Playlist_MouseDoubleClick" >
 
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
@@ -173,8 +173,5 @@
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressStatus" Margin="10,251,698,485">00:00:00</TextBlock>
         <TextBlock  FontSize="20" FontStyle="Italic" Name="lblProgressTime" Margin="698,251,10,485"><Run Text="00:00:00"/></TextBlock>
         <TextBlock  FontSize="24" FontStyle="Normal" Name="Artist" Margin="10,100,176,626"></TextBlock>
-
     </Grid>
-
-
 </Window>

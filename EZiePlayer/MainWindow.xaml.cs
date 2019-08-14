@@ -57,7 +57,7 @@ namespace EZiePlayer
                 {
                     TrackList.Files.Add(fileName);
                     TagModel tm = new TagModel(fileName);
-                    playlist.Items.Add(numOfTrack + ". "  + tm.Artist + " - " + tm.Title + "\n    " + new StringBuilder().Append('\t', 12) + player.GetLengthOfFile(fileName) + "\n  " + " Bitrate: " + tm.BitRate + " kbps     " + " Album: " + tm.Album);
+                    playlist.Items.Add(numOfTrack + ". "  + tm.Artist + " - " + tm.Title + "\n    " + new StringBuilder().Append('\t', 13) + player.GetLengthOfFile(fileName) + "\n  " + " Bitrate: " + tm.BitRate + " kbps     " + " Album: " + tm.Album);
                     numOfTrack++;
                 }
             }
@@ -110,6 +110,7 @@ namespace EZiePlayer
             posOfSelector--;
             if (playlist.Items.Count != 0 && playlist.Items.Count > posOfSelector && posOfSelector > -1)
             {
+                player.Stop();
                 playlist.SelectedIndex = posOfSelector;
                 Play();
             }
@@ -121,6 +122,7 @@ namespace EZiePlayer
             posOfSelector++;
             if (playlist.Items.Count != 0 && playlist.Items.Count > posOfSelector)
             {
+                player.Stop();
                 playlist.SelectedIndex = posOfSelector;
                 Play();
             }
@@ -153,6 +155,10 @@ namespace EZiePlayer
         {
             lblProgressStatus.Text = TimeSpan.FromSeconds(player.GetPosOfStream(Playerlogic.Stream)).ToString();
 
+            //if(isPlaying == false)
+            //{
+            //    Bass.BASS_ChannelSetPosition(Playerlogic.Stream, (short)e.NewValue);
+            //}
         }
 
         private void SliderPos_DragStarted(object sender, DragStartedEventArgs e)
@@ -175,7 +181,7 @@ namespace EZiePlayer
             timer.Start();
             posOfSelector = playlist.SelectedIndex;
             TagModel tm = new TagModel(TrackList.Files[playlist.SelectedIndex]);
-            Artist.Text = "Now playing:  " + tm.Artist + " - " + tm.Title;
+            Artist.Text = tm.Artist + " - " + tm.Title;
         }
 
         private void MenuItem_Delete(object sender, RoutedEventArgs e)
@@ -192,16 +198,12 @@ namespace EZiePlayer
             posOfSelector = 0;
             numOfTrack = 1;
         }
-       
 
-        private void SliderPos_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void SliderPos_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //timer.Stop();
             //player.Pause();
-            //Playerlogic.GetPosOfScroll(Playerlogic.Stream, sliderPos.Value);
-            //string current = TrackList.Files[playlist.SelectedIndex];
-            //player.Play(current, player.Volume);
-            
+            //isPlaying = false;
         }
     }
 }
